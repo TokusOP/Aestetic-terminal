@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aestetic Terminal</title>
+    <link rel="stylesheet" href="styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Syne+Mono&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Major+Mono+Display&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Red+Hat+Mono:ital,wght@0,300..700;1,300..700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div id="terminalBar">
+        <span class="terminal-title">TERMINAL</span>
+        <div class="terminal-buttons">
+            <button id="toggleControlsButton">CONFIGURACIONES</button> 
+            <button id="copyTextButton">COPIAR</button>
+            <button id="pasteTextButton">PEGAR</button>
+            <button id="openCreditsButton">CRÉDITOS</button>
+        </div>
+    </div>
+
+    <div id="controls" class="hidden">
+        <h3>Ajustes</h3>
+        <label for="inputText">Texto:</label>
+        <input type="text" id="inputText" value="welcome">
+
+        <label for="textColor">Color del Texto:</label>
+        <input type="color" id="textColor" value="#ffffff">
+
+        <label for="bgColor">Color de Fondo:</label>
+        <input type="color" id="bgColor" value="#000000">
+
+        <label for="fontSelect">Fuente:</label>
+<select id="fontSelect">
+    <option value="monospace" selected>Monospace</option>
+    <option value="'Syne Mono', monospace">Syne Mono</option>
+    <option value="'DotGothic16', monospace">DotGothic16</option>
+    <option value="'Press Start 2P', monospace">Press Start 2P</option>
+    <option value="'Space Mono', monospace">Space Mono</option>
+    <option value="'Major Mono Display', monospace">Major Mono Display</option>
+    <option value="'JetBrains Mono', monospace">JetBrains Mono</option>
+    <option value="'Red Hat Mono', monospace">Red Hat Mono</option>
+    <option value="'Roboto Mono', monospace">Roboto Mono</option>
+    <option value="sans-serif">Sans-serif</option>
+    <option value="serif">Serif</option>
+</select>
+
+        <label for="effectSelect">Efecto:</label>
+<select id="effectSelect">
+    <option value="none" selected>Ninguno</option>
+    <option value="bloom">Bloom (Resplandor)</option>
+    <option value="crt">CRT (Pantalla Antigua)</option>
+    <option value="vhs">VHS (Aberración Cromática)</option>
+</select>
+
+        <label for="crtGlowColor" id="crtGlowLabel" class="hidden">Color Resplandor CRT:</label>
+        <input type="color" id="crtGlowColor" value="#00ff00" class="hidden">
+    </div>
+
+    <div id="textContainer">
+        </div>
+    
+    <div id="creditsModal" class="hidden">
+        <div class="credits-content">
+            <h3>CRÉDITOS</h3>
+            <p><strong>creador:</strong> TokusOP</p>
+            <p><strong>idea de:</strong> Guppy</p>
+            <button id="closeCreditsButton">Cerrar</button>
+        </div>
+    </div>
+
+    <!-- Contenedor para efecto CRT -->
+    <div class="crt-effect-container"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>

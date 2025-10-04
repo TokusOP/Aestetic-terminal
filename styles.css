@@ -1,0 +1,343 @@
+/* Definición del color de resaltado estético */
+:root {
+    --highlight-color: #ffffff; /* Verde Neon Puro */
+    --separator-color: #333333;
+    --dark-bg: #111111;
+}
+
+/* Estilos Base y Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #000000;
+    color: #ffffff;
+    transition: background-color 0.3s;
+    font-family: monospace;
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+}
+
+/* ---------------------------------------------------- */
+/* --- BARRA SUPERIOR DE TERMINAL --- */
+/* ---------------------------------------------------- */
+
+#terminalBar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 40px;
+    background-color: var(--dark-bg);
+    color: #ffffff;
+    font-family: monospace;
+    display: flex;
+    justify-content: flex-start; 
+    align-items: center;
+    padding: 0 10px;
+    box-sizing: border-box;
+    z-index: 1000;
+    border-bottom: 1px solid var(--separator-color);
+}
+
+.terminal-title {
+    color: var(--highlight-color);
+    padding-right: 15px;
+    font-weight: bold;
+    border-right: 1px solid var(--separator-color); 
+}
+
+.terminal-buttons {
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+}
+
+.terminal-buttons button {
+    background-color: transparent;
+    color: #aaaaaa;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-family: monospace;
+    transition: color 0.2s, background-color 0.2s;
+    position: relative;
+    white-space: nowrap;
+}
+
+.terminal-buttons button:hover {
+    color: var(--highlight-color);
+    background-color: #222222;
+}
+
+/* Separadores entre botones */
+.terminal-buttons button:not(:last-child)::after {
+    content: '|';
+    color: var(--separator-color);
+    position: absolute;
+    right: -2px;
+}
+
+/* ---------------------------------------------------- */
+/* --- Panel de Controles --- */
+/* ---------------------------------------------------- */
+
+#controls {
+    position: fixed;
+    top: 40px;
+    right: 10px;
+    width: 250px;
+    background-color: rgba(0, 0, 0, 0.95);
+    color: #fff;
+    padding: 15px;
+    border-radius: 4px;
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-family: sans-serif;
+    border: 1px solid var(--separator-color);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease-in-out;
+}
+
+.hidden {
+    display: none !important;
+}
+
+#controls h3 {
+    color: var(--highlight-color);
+    margin-top: 0;
+    padding-bottom: 5px;
+    border-bottom: 1px solid var(--separator-color);
+}
+
+#controls label {
+    font-size: 0.9em;
+    color: #ccc;
+    margin-top: 5px;
+}
+
+#controls input[type="text"],
+#controls input[type="color"],
+#controls select {
+    padding: 8px;
+    border: 1px solid #555;
+    border-radius: 3px;
+    background-color: #222;
+    color: #fff;
+    font-size: 1em;
+}
+
+#controls input[type="color"] {
+    width: 100%;
+    height: 30px;
+    box-sizing: border-box;
+}
+
+/* ---------------------------------------------------- */
+/* --- Contenedor y Líneas de Texto --- */
+/* ---------------------------------------------------- */
+
+#textContainer {
+    position: fixed;
+    top: 40px;
+    left: 0;
+    width: 100vw;
+    height: calc(100vh - 40px);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 10px;
+    box-sizing: border-box;
+    line-height: 1.2;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.text-line {
+    font-size: 20px;
+    white-space: nowrap;
+    width: 100%;
+    margin-bottom: 0;
+}
+
+/* ---------------------------------------------------- */
+/* --- Efectos Visuales (Bloom y CRT) --- */
+/* ---------------------------------------------------- */
+
+.effect-bloom {
+    filter: 
+        drop-shadow(0 0 10px currentColor)
+        drop-shadow(0 0 25px currentColor);
+    transition: text-shadow 0.3s, filter 0.3s;
+}
+
+.effect-crt {
+    filter: saturate(1.5) contrast(1.5); 
+}
+
+/* Contenedor para efecto CRT */
+.crt-effect-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    z-index: 2;
+    display: none;
+}
+
+body.effect-crt .crt-effect-container {
+    display: block;
+}
+
+body.effect-crt .crt-effect-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: 
+        linear-gradient(rgba(0, 0, 0, 0.4) 1px, transparent 1px);
+    background-size: 100% 3px;
+    box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.8); 
+    animation: flicker 0.15s infinite alternate, scan-line 6s linear infinite; 
+}
+
+/* Animaciones */
+@keyframes flicker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.98; }
+    90% { opacity: 0.99; }
+}
+
+@keyframes scan-line {
+    0% { background-position: 0 0; }
+    100% { background-position: 0 100%; }
+}
+
+/* Efecto VHS con Aberración Cromática - SOLO TEXTO */
+.effect-vhs {
+    position: relative;
+    color: #ffffff !important;
+}
+
+/* Aberración cromática - canales RGB separados */
+.effect-vhs::before,
+.effect-vhs::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
+.effect-vhs::before {
+    color: #ff0000; /* Canal rojo */
+    filter: blur(0.7px);
+    transform: translate(-1.5px, 0.5px);
+    mix-blend-mode: screen;
+    opacity: 0.8;
+}
+
+.effect-vhs::after {
+    color: #0000ff; /* Canal azul */
+    filter: blur(0.7px);
+    transform: translate(1.5px, -0.5px);
+    mix-blend-mode: screen;
+    opacity: 0.8;
+}
+
+/* Efectos VHS adicionales sutiles */
+body.effect-vhs {
+    animation: vhsFlicker 0.5s infinite;
+}
+
+/* Parpadeo VHS sutil */
+@keyframes vhsFlicker {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.98; }
+    80% { opacity: 0.99; }
+}
+
+/* Ruido sutil solo en el área de texto */
+body.effect-vhs #textContainer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: 
+        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" opacity="0.03"><filter id="noise"><feTurbulence type="fractalNoise" baseFrequency="0.7" numOctaves="1" stitchTiles="stitch"/></filter><rect width="100%" height="100%" filter="url(%23noise)"/></svg>');
+    pointer-events: none;
+    z-index: 2;
+    mix-blend-mode: overlay;
+}
+/* ---------------------------------------------------- */
+/* --- Modal de Créditos --- */
+/* ---------------------------------------------------- */
+
+#creditsModal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.95);
+    z-index: 3000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.credits-content {
+    background-color: var(--dark-bg);
+    border: 1px solid var(--separator-color);
+    padding: 30px;
+    border-radius: 5px;
+    text-align: center;
+    color: #ccc;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    font-family: 'Roboto Mono', monospace;
+}
+
+.credits-content h3 {
+    color: var(--highlight-color);
+    border-bottom: 1px solid var(--separator-color);
+    padding-bottom: 10px;
+    margin-top: 0;
+}
+
+.credits-content strong {
+    color: #fff;
+}
+
+.credits-content button {
+    margin-top: 20px;
+    background-color: #222;
+    color: var(--highlight-color);
+    border: 1px solid var(--separator-color);
+    padding: 8px 15px;
+    cursor: pointer;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+.credits-content button:hover {
+    background-color: var(--highlight-color);
+    color: var(--dark-bg);
+}
