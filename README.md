@@ -34,13 +34,5 @@ Lista sugerida (ajusta si falta o sobra alguna):
 
 - HTML5 & CSS3  
 - JavaScript (o framework/js vanilla)  
-- Animaciones / efectos visuales CSS o WebGL  
+- Animaciones / efectos visuales CSS 
 - Fuentes web (hosteadas o importadas)  
-
----
-
-## 🚀 Cómo contribuir o ejecutar localmente
-
-1. Clona este repositorio  
-   ```bash
-   git clone https://github.com/tuusuario/Aestetic-terminal.git
